@@ -11,10 +11,11 @@
     "scripts": {
         "start": "yarn nodemon src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "migrations:make": "yarn knex migrate:make --migrations-directory src/database/migrations ",
-        "migrations:latest": "yarn knex migrate:latest --knexfile ./src/knexfile.ts --migrations-directory ./database/migrations",
-        "migrations:down": "yarn knex migrate:down --knexfile ./src/knexfile.ts --migrations-directory ./database/migrations",
-        "db:seed": "yarn knex seed:run --knexfile ./src/knexfile.ts --migrations-directory ./database/seeds"
+        "migrations:make": "yarn knex migrate:make --migrations-directory src/shared/infra/knex/database/migrations",
+        "migrations:latest": "yarn knex migrate:latest --knexfile ./src/shared/infra/knex/knexfile.ts --migrations-directory ./database/migrations",
+        "migrations:down": "yarn knex migrate:down --knexfile ./src/shared/infra/knex/knexfile.ts --migrations-directory ./database/migrations",
+
+        "db:seed": "yarn knex seed:run --knexfile ./src/shared/infra/knex/knexfile.ts --migrations-directory ./database/seeds"
     },
     "packageManager": "yarn@3.6.1",
     "dependencies": {

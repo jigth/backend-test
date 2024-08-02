@@ -1,9 +1,10 @@
 import express from 'express';
 import { knex } from 'knex';
-import dbConfig  from './knexfile';
-import { createEventDAL } from './dal/events.dal';
-import { createTicketDAL } from './dal/tickets.dal';
-import { createGetEventsController } from './controllers/get-events';
+
+import dbConfig from './shared/infra/knex/knexfile';
+import { createEventDAL } from './modules/events/infra/dal/events.dal';
+import { createTicketDAL } from './modules/tickets/infra/dal/tickets.dal';
+import { createGetEventsController } from './modules/events/infra/controllers/get-events';
 
 // initialize Knex
 const Knex = knex(dbConfig.development);
@@ -15,7 +16,7 @@ const TicketDAL = createTicketDAL(Knex);
 
 const app = express();
 
-app.use('/health', (req, res) => {
+app.use('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 

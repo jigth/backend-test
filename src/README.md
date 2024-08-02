@@ -6,4 +6,4 @@ Welcome to this code, I'll be as brief as possible here and explain only the fou
 
 2. New features will be implemented using a clean architecture (Hexagonal Architecture + Screaming Architecture + some Unit Tests)
 
-3. If there's more than enough time I may refactor this whole project to use a clean architecture completely but for now it'll be a mix of both.
+3. I decided to refactor the whole project to a clean architecture before starting because it was simple enough to be tested manually and combining two architectural styles (MVC and Clean Architecture) would have been worse than just keep using MVC in complexity and organization.

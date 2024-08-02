@@ -1,5 +1,6 @@
 import { Knex } from 'knex';
-import { Ticket } from '../entity/ticket';
+// import { Ticket } from '../entity/ticket';
+import { Ticket } from '../../domain/entity/tickets';
 
 export interface TicketsDAL {
   getTicketsByEvent(eventId: number): Promise<Ticket[]>;

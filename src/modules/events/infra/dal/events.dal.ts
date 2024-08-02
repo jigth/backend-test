@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { Event } from '../entity/event';
+import { Event } from '../../domain/entity/event';
 
 export interface EventDAL {
   getEvents(limit: number): Promise<Event[]>;
