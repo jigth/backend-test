@@ -11,7 +11,8 @@ export const getMobileSettingById = async (req: Request, res: Response) => {
     if (isNaN(tempId)) throw new Error('ID should be a number');
     id = tempId;
   } catch (err) {
-    console.log(`Route param "${id}" not ok. ${err.message}`);
+    if (!err.message.includes("ID should be a number"))
+      console.log(`Route param "${id}" not ok. ${err.message}`);
   }
 
   try {
