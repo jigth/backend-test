@@ -3,6 +3,10 @@ import { MobileSettingsRepo } from '../repos/settings';
 import { MobileSetting } from '../../domain/models/index';
 import { validateNewMobileSetting } from './validation/settingsValidation';
 
+export const getMobileSettingById2 = async (req: Request, res: Response): Promise<string> => {
+  return Promise.resolve('hello')
+}
+
 export const getMobileSettingById = async (req: Request, res: Response) => {
   let id: number = 1;
 

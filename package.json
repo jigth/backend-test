@@ -1,6 +1,5 @@
 {
   "name": "@seeticketsus/st-hiring-backend",
-  "type": "module",
   "description": "seetickets-core project",
   "license": "UNLICENSED",
   "private": true,
@@ -44,7 +43,6 @@
     "jest-pnp-resolver": "^1.2.3",
     "nodemon": "^3.1.4",
     "prettier": "3.3.2",
-    "ts-jest": "^29.2.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "5.5.2"
