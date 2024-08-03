@@ -7,6 +7,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mg-data:/data/db
 
   mongo-express:
     image: mongo-express
@@ -26,9 +28,15 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: example
       POSTGRES_DB: seetickets
+    volumes:
+      - pg-data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+
+volumes:
+  pg-data:
+  mg-data:
