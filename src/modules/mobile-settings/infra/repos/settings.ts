@@ -36,7 +36,7 @@ export class MobileSettingsRepo {
       let settingById = await this.mobileSettings.findOne({ clientId });
 
       if (!settingById) {
-        msg = `${msg}. (setting with clientId ${clientId} not found. Showing default setting)`;
+        msg = `${msg}. ("mobile setting" with clientId ${clientId} not found. Showing default setting)`;
         settingById = await this.getDefaultMobileSetting();
       }
 

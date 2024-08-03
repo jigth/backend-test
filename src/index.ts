@@ -7,7 +7,7 @@ import dbConfig from './shared/infra/db/knex/knexfile';
 import { createEventDAL } from './modules/events/infra/dal/events.dal';
 import { createTicketDAL } from './modules/tickets/infra/dal/tickets.dal';
 import { createGetEventsController } from './modules/events/infra/controllers/get-events';
-import { mobileSettingsRouter } from './modules/mobile-settings/infra/controllers/mobile-settings'
+import { mobileSettingsRouter } from './modules/mobile-settings/infra/routes/mobile-settings'
 
 // initialize Knex
 const Knex = knex(dbConfig.development);
