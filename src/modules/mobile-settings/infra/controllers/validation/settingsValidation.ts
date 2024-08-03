@@ -34,7 +34,12 @@ export function validateNewMobileSetting(newSetting: MobileSetting) {
         }),
         ticketDisplay: z.object({
           leftInAllotment: z.boolean(),
-        })
+        }),
+        customerInfo: z.object({
+          active: z.boolean(),
+          basicInfo: z.boolean(),
+          addressInfo: z.boolean(),
+        }),
     });
 
     const result = newMobileSettingSchema.safeParse(newSetting);

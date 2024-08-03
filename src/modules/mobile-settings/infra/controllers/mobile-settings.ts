@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { MobileSettingsRepo } from '../repos/settings';
 import { MobileSetting } from '../../domain/models/index';
-import { validateNewMobileSetting } from './validation/settingsValidation'
+import { validateNewMobileSetting } from './validation/settingsValidation';
 
 const msRouter = Router();
 
@@ -17,7 +17,7 @@ msRouter.get('/', async (req: Request, res: Response) => {
   }
 
   try {
-    const { msg, settingById } = await MobileSettingsRepo.getMobileSettingsById(id);
+    const { msg, settingById } = await MobileSettingsRepo.getMobileSettingById(id);
 
     res.send({
       msg, //: settingById ? 'ok' : `ok (result not found. id=${id})`,
@@ -34,18 +34,19 @@ msRouter.get('/', async (req: Request, res: Response) => {
 });
 
 msRouter.put('/', async (req: Request, res: Response) => {
-  const newSetting: MobileSetting = req.body
+  const newSetting: MobileSetting = req.body;
 
   try {
-    const validatedNewSetting = validateNewMobileSetting(newSetting)
+    validateNewMobileSetting(newSetting);
+    const newMobileSetting = await MobileSettingsRepo.saveMobileSetting(newSetting);
+
     return res.send({
       msg: 'ok',
-      data: validatedNewSetting,
-    })
-
+      data: newMobileSetting,
+    });
   } catch (err) {
-    console.log('Validation error', err.message)
-    return res.send({ msg: "Validation error", error: err.message })
+    console.log('Validation error', err.message);
+    return res.send({ msg: 'Validation error', error: err.message });
   }
 });
 
