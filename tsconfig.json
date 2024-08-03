@@ -6,7 +6,7 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "dist",
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "vitest/globals"],
     "noUnusedParameters": false,
     // Emit options
     "declaration": true,
