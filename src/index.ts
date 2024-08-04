@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import express from 'express';
 import { knex } from 'knex';
-
+import cors from 'cors'
 import dbConfig from './shared/infra/db/knex/knexfile';
 import { createEventDAL } from './modules/events/infra/dal/events.dal';
 import { createTicketDAL } from './modules/tickets/infra/dal/tickets.dal';
@@ -20,6 +20,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 app.use('/health', (_req, res) => {
   res.json({ status: 'ok' });
