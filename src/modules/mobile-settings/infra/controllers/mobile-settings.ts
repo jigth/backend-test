@@ -11,12 +11,11 @@ export const getMobileSettingById = async (req: Request, res: Response) => {
     if (isNaN(tempId)) throw new Error('ID should be a number');
     id = tempId;
   } catch (err) {
-    if (!err.message.includes("ID should be a number"))
-      console.log(`Route param "${id}" not ok. ${err.message}`);
+    if (!err.message.includes('ID should be a number')) console.log(`Route param "${id}" not ok. ${err.message}`);
   }
 
   try {
-    const { msg, settingById } = await MobileSettingsRepo.getMobileSettingById(id);
+    const { msg, settingById } = await MobileSettingsRepo.getInstance().getMobileSettingById(id);
 
     res.send({
       msg,
@@ -30,6 +29,7 @@ export const getMobileSettingById = async (req: Request, res: Response) => {
     });
     return;
   }
+};
 }
 
 export const updateMobileSetting = async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ export const updateMobileSetting = async (req: Request, res: Response) => {
 
   try {
     validateNewMobileSetting(newSetting);
-    const newMobileSetting = await MobileSettingsRepo.saveMobileSetting(newSetting);
+    const newMobileSetting = await MobileSettingsRepo.getInstance().saveMobileSetting(newSetting);
 
     return res.send({
       msg: 'ok',
@@ -47,4 +47,4 @@ export const updateMobileSetting = async (req: Request, res: Response) => {
     console.log('Validation error', err.message);
     return res.send({ msg: 'Validation error', error: err.message });
   }
-}
+};

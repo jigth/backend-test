@@ -1,15 +1,27 @@
-import { mongodbClient as client, mongodbDatabase as database } from '../../../../shared/infra/db/mongodb/connection';
+import { mongodbDatabase as database } from '../../../../shared/infra/db/mongodb/connection';
 import { MobileSetting } from '../../domain/models';
 import { DEFAULT_MOBILE_SETTING } from './constants/settings';
 
 export class MobileSettingsRepo {
-  static mobileSettings = database.collection('mobile_settings');
+  private mobileSettings
+  private static instance: MobileSettingsRepo;
+
+  private constructor() {
+    this.mobileSettings = database.collection('mobile_settings');
+  }
+
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new MobileSettingsRepo();
+    }
+    return this.instance;
+  }
 
   /** Gets the default mobile setting. Creates it if necessary.
    * NOTE: This is a helper method and should only be called from another one that initializes
    * and closes the mongodb client
    */
-  static async getDefaultMobileSetting() {
+  async getDefaultMobileSetting() {
     const defaultClientId = 1;
     let settingById = await this.mobileSettings.findOne({ clientId: defaultClientId });
 
@@ -27,9 +39,17 @@ export class MobileSettingsRepo {
     return settingById;
   }
 
-  static async getMobileSettingById(clientId: number): Promise<{ msg: string; settingById: any }> {
-    await client.connect();
+  async getClientsIdsWithMobileSettings() {
+    try {
+      const clientIds = await this.mobileSettings.distinct('clientId');
+      return clientIds;
+    } catch (err) {
+      console.log(err.message);
+      throw new Error(err.message);
+    }
+  }
 
+  async getMobileSettingById(clientId: number): Promise<{ msg: string; settingById: any }> {
     let msg = 'ok';
 
     try {
@@ -47,15 +67,10 @@ export class MobileSettingsRepo {
     } catch (err) {
       console.log(err.message);
       throw new Error(err.message);
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
     }
   }
 
-  static async saveMobileSetting(newMobileSetting: MobileSetting): Promise<MobileSetting> {
-    await client.connect();
-
+  async saveMobileSetting(newMobileSetting: MobileSetting): Promise<MobileSetting> {
     try {
       const foundSetting = await this.mobileSettings.findOne({ clientId: newMobileSetting.clientId });
 
@@ -69,12 +84,10 @@ export class MobileSettingsRepo {
         { $set: newMobileSetting },
         { returnDocument: 'after', upsert: false },
       );
-      
+
       return newSetting;
     } catch (err) {
       throw new Error(err.message);
-    } finally {
-      client.close();
     }
   }
 }

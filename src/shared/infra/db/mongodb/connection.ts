@@ -6,3 +6,27 @@ const db_name = process.env.MONGODB_DATABASE_NAME ?? 'backend-test';
 
 export const mongodbClient = new MongoClient(uri);
 export const mongodbDatabase = mongodbClient.db(db_name);
+
+// Connect to MongoDB
+async function connectToDatabase() {
+  try {
+    await mongodbClient.connect();
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB', error);
+  }
+}
+
+connectToDatabase().catch((err) => console.log(`Error while connecting to MongoDB client ${err}`));
+
+// Handle close connection when app is finished to free allocated resources for MongoDB connection.
+process.on('SIGINT', async () => {
+  try {
+    await mongodbClient.close();
+    console.log('MongoDB connection closed');
+    process.exit(0);
+  } catch (error) {
+    console.error('Error closing MongoDB connection', error);
+    process.exit(1);
+  }
+});
