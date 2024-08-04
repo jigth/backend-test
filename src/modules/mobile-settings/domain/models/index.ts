@@ -27,7 +27,7 @@ interface FulfillmentFormat {
 }
 
 interface Printer {
-  id: any;
+  id?: string;
 }
 
 interface PrintingFormat {
