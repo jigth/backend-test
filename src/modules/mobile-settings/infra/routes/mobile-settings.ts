@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { getMobileSettingById, updateMobileSetting } from '../controllers/mobile-settings';
+import { getClientsIdsWithMobileSettings, getMobileSettingById, updateMobileSetting } from '../controllers/mobile-settings';
 
 const msRouter = Router();
 
+msRouter.get('/clients-ids', getClientsIdsWithMobileSettings);
 msRouter.get('/:id?', getMobileSettingById);
 msRouter.put('/', updateMobileSetting);
 

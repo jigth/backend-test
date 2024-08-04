@@ -30,6 +30,16 @@ export const getMobileSettingById = async (req: Request, res: Response) => {
     return;
   }
 };
+
+/** Gets all distinct IDs from clients that are in the "mobileSettings" table */
+export const getClientsIdsWithMobileSettings = async (req: Request, res: Response) => {
+  try {
+    const clientIds = await MobileSettingsRepo.getInstance().getClientsIdsWithMobileSettings();
+    res.send({ msg: 'ok', data: clientIds });
+  } catch (err) {
+    console.log('Error while retrieving clients ids with mobile settings', err.message);
+    res.send({ msg: 'Error', error: err.message });
+  }
 }
 
 export const updateMobileSetting = async (req: Request, res: Response) => {
