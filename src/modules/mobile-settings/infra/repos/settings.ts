@@ -21,7 +21,7 @@ export class MobileSettingsRepo {
    * NOTE: This is a helper method and should only be called from another one that initializes
    * and closes the mongodb client
    */
-  async getDefaultMobileSetting() {
+  private async getDefaultMobileSetting() {
     const defaultClientId = 1;
     let settingById = await this.mobileSettings.findOne({ clientId: defaultClientId });
 
