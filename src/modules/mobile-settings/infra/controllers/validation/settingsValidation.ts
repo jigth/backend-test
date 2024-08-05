@@ -17,7 +17,7 @@ export function validateNewMobileSetting(newSetting: MobileSetting) {
           print: z.boolean(),
         }),
         printer: z.object({
-          id: z.number().nullable(),
+          id: z.string().nullable(),
         }),
         printingFormat: z.object({
           formatA: z.boolean(),
