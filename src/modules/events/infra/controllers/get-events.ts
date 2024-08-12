@@ -14,12 +14,15 @@ export const createGetEventsController = ({
   let { limit } = getEventsParams(req);
 
   const events = await eventsDAL.getEvents(limit);
-  
+
+  // NOTE: Original code, left here for documentation purposes and for easy comparison between original and optimized 
+  //  approach to fetching events data with tickets.
+
   // add the available tickets to the response for each event
-  for (let i = 0; i < events.length; i++) {
-    const event = events[i];
-    const tickets = await ticketsDAL.getTicketsByEvent(event.id);
-    events[i].availableTickets = tickets.filter(ticket => ticket.status === 'available');
-  }
+  // for (let i = 0; i < events.length; i++) {
+  //   const event = events[i];
+  //   const tickets = await ticketsDAL.getTicketsByEvent(event.id);
+  //   events[i].availableTickets = tickets.filter(ticket => ticket.status === 'available');
+  // }
   res.json(events);
 };
